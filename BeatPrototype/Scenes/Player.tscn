@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Art/char_sheet.png" type="Texture" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+[sub_resource type="CapsuleShape2D" id=2]
+
+[sub_resource type="Animation" id=3]
+resource_name = "Player_Idle"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 12 ]
+}
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 313.412, 375.827 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 1 )
+jump_speed = -600
+gravity = 2000
+friction = 0.3
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 3.97632, -11.5976 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+hframes = 13
+vframes = 8
+frame = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Player_Idle"
+method_call_mode = 1
+anims/Player_Idle = SubResource( 3 )
