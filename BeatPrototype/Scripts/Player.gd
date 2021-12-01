@@ -7,9 +7,11 @@ export (float, 0, 1.0) var friction = 0.2
 export (float, 0, 1.0) var acceleration = 0.50
 
 var velocity = Vector2.ZERO
+var dir = 0;
+onready var stateMachine = $AnimationTree.get("parameters/playback")
 
 func get_input():
-	var dir = 0
+	dir = 0
 	if Input.is_action_pressed("player_right"):
 		dir += 1
 	if Input.is_action_pressed("player_left"):
@@ -18,6 +20,21 @@ func get_input():
 		velocity.x = lerp(velocity.x, dir * speed, acceleration)
 	else:
 		velocity.x = lerp(velocity.x, 0, friction)
+	
+	
+	#Handle Animations
+	var currentState = stateMachine.get_current_node()
+	
+	if(dir != 0):
+		stateMachine.travel("run")
+		if(dir == 1): #face left
+			$Sprite.flip_h = false
+		if(dir == -1): #face right
+			$Sprite.flip_h = true
+	else:
+		stateMachine.travel("idle")
+		
+	
 
 func _physics_process(delta):
 	get_input()
@@ -26,5 +43,5 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("player_jump"):
 		if is_on_floor():
 			velocity.y = jump_speed
-
-
+	
+		
