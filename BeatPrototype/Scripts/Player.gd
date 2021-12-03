@@ -8,6 +8,7 @@ export (float, 0, 1.0) var acceleration = 0.50
 
 var velocity = Vector2.ZERO
 var dir = 0;
+onready var originalScaleX = scale.x
 onready var stateMachine = $AnimationTree.get("parameters/playback")
 
 var isAttacking = false
@@ -15,9 +16,13 @@ var isAttacking = false
 func get_input():
 	dir = 0
 	if Input.is_action_pressed("player_right"):
-		dir += 1
+		dir = 1
+		$Sprite.scale.x = dir
 	if Input.is_action_pressed("player_left"):
-		dir -= 1
+		dir = -1
+		$Sprite.scale.x = dir
+
+	
 
 		
 	if dir != 0:
@@ -26,17 +31,15 @@ func get_input():
 		velocity.x = lerp(velocity.x, 0, friction)
 	
 	
-	#Handle Animations
-	var currentState = stateMachine.get_current_node()
+	#if(dir == 1): #face left
+		#$Sprite.flip_h = true
+	#if(dir == -1): #face right
+		#$Sprite.flip_h = false
 	
 	if Input.is_action_just_pressed("player_attack"):
 		stateMachine.travel("attack_2")
 	elif(dir != 0): #Running
 		stateMachine.travel("run")
-		if(dir == 1): #face left
-			$Sprite.flip_h = false
-		if(dir == -1): #face right
-			$Sprite.flip_h = true
 	else: #Stopped
 		stateMachine.travel("idle")
 		
@@ -49,6 +52,3 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("player_jump"):
 		if is_on_floor():
 			velocity.y = jump_speed
-			
-	
-		

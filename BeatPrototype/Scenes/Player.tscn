@@ -3,11 +3,14 @@
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Art/char_sheet.png" type="Texture" id=2]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7.35767, 3.73711 )
 
 [sub_resource type="CapsuleShape2D" id=2]
+radius = 3.88596
+height = 12.5215
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=4]
 resource_name = "attack_2"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -21,9 +24,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 39, 48 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/SwordHit/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
 
-[sub_resource type="Animation" id=3]
-resource_name = "idle"
+[sub_resource type="Animation" id=5]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -39,8 +53,7 @@ tracks/0/keys = {
 "values": [ 0, 12 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "jump"
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -54,7 +67,7 @@ tracks/0/keys = {
 "values": [ 65, 70 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=7]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -69,75 +82,78 @@ tracks/0/keys = {
 "values": [ 13, 20 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "attack_2"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=7]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "run"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+
 [sub_resource type="AnimationNodeStateMachineTransition" id=15]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=16]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=17]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=18]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=19]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=20]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id=10]
-states/attack_2/node = SubResource( 13 )
+[sub_resource type="AnimationNodeStateMachine" id=17]
+states/attack_2/node = SubResource( 8 )
 states/attack_2/position = Vector2( 188, 113 )
-states/idle/node = SubResource( 14 )
+states/idle/node = SubResource( 9 )
 states/idle/position = Vector2( 403, 58 )
-states/run/node = SubResource( 7 )
+states/run/node = SubResource( 10 )
 states/run/position = Vector2( 403, 176 )
-transitions = [ "idle", "run", SubResource( 15 ), "run", "idle", SubResource( 16 ), "idle", "attack_2", SubResource( 17 ), "run", "attack_2", SubResource( 18 ), "attack_2", "idle", SubResource( 19 ), "attack_2", "run", SubResource( 20 ) ]
+transitions = [ "idle", "run", SubResource( 11 ), "run", "idle", SubResource( 12 ), "idle", "attack_2", SubResource( 13 ), "run", "attack_2", SubResource( 14 ), "attack_2", "idle", SubResource( 15 ), "attack_2", "run", SubResource( 16 ) ]
 start_node = "idle"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=11]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=18]
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 313.412, 375.827 )
-scale = Vector2( 2, 2 )
+scale = Vector2( 3, 3 )
 script = ExtResource( 1 )
 jump_speed = -600
 gravity = 2000
 friction = 0.3
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 3.97632, -11.5976 )
-scale = Vector2( 2, 2 )
+position = Vector2( 0, -10 )
 texture = ExtResource( 2 )
 hframes = 13
 vframes = 8
-frame = 13
+frame = 5
+
+[node name="SwordHit" type="Area2D" parent="Sprite"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/SwordHit"]
+position = Vector2( 7.46729, 5.9462 )
+shape = SubResource( 1 )
+disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
-
-[node name="Area2D" type="Area2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -4.84 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 method_call_mode = 1
-anims/attack_2 = SubResource( 12 )
-anims/idle = SubResource( 3 )
-anims/jump = SubResource( 4 )
-anims/run = SubResource( 5 )
+anims/attack_2 = SubResource( 4 )
+anims/idle = SubResource( 5 )
+anims/jump = SubResource( 6 )
+anims/run = SubResource( 7 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 10 )
+tree_root = SubResource( 17 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 11 )
+parameters/playback = SubResource( 18 )
+
+[connection signal="area_entered" from="Sprite/SwordHit" to="." method="_on_SwordHit_area_entered"]
