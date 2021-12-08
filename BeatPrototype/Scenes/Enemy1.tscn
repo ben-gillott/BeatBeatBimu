@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Hurtbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/enemyWalking_2.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Enemy1.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Hitbox.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 11.8043
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16.532, 20.1128 )
+extents = Vector2( 15.5986, 19.446 )
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource( 3 )
@@ -13,12 +17,17 @@ script = ExtResource( 3 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
+[node name="Hitbox" parent="." instance=ExtResource( 4 )]
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource( 2 )
+
 [node name="Hurtbox" parent="." instance=ExtResource( 1 )]
 collision_layer = 8
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource( 1 )
 
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
-
+[editable path="Hitbox"]
 [editable path="Hurtbox"]

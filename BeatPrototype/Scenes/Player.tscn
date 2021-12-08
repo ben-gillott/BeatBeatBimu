@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Art/char_sheet.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Hitbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Hurtbox.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=18]
 extents = Vector2( 8.21408, 2.94104 )
@@ -118,6 +119,10 @@ start_node = "idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=17]
 
+[sub_resource type="CapsuleShape2D" id=19]
+radius = 2.52653
+height = 7.48209
+
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 313.412, 375.827 )
 scale = Vector2( 3, 3 )
@@ -132,7 +137,7 @@ position = Vector2( 0, -10 )
 texture = ExtResource( 2 )
 hframes = 13
 vframes = 8
-frame = 11
+frame = 7
 
 [node name="SwordHitbox" parent="Sprite" instance=ExtResource( 3 )]
 collision_mask = 8
@@ -159,4 +164,12 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 17 )
 
+[node name="Hurtbox" parent="." instance=ExtResource( 4 )]
+collision_layer = 4
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 0, -3.78 )
+shape = SubResource( 19 )
+
 [editable path="Sprite/SwordHitbox"]
+[editable path="Hurtbox"]

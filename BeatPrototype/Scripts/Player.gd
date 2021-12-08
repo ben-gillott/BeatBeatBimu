@@ -52,3 +52,6 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("player_jump"):
 		if is_on_floor():
 			velocity.y = jump_speed
+
+func onHurt(area):
+	print("player hurt")
