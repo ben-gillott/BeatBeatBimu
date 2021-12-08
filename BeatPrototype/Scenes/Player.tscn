@@ -1,16 +1,17 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Art/char_sheet.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Hitbox.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7.35767, 3.73711 )
+[sub_resource type="RectangleShape2D" id=18]
+extents = Vector2( 8.21408, 2.94104 )
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 3.88596
 height = 12.5215
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "attack_2"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -25,19 +26,19 @@ tracks/0/keys = {
 "values": [ 39, 48 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite/SwordHit/CollisionShape2D:disabled")
+tracks/1/path = NodePath("Sprite/SwordHitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -53,7 +54,7 @@ tracks/0/keys = {
 "values": [ 0, 12 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -67,7 +68,7 @@ tracks/0/keys = {
 "values": [ 65, 70 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -82,14 +83,16 @@ tracks/0/keys = {
 "values": [ 13, 20 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=7]
 animation = "attack_2"
 
-[sub_resource type="AnimationNodeAnimation" id=9]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=11]
 
@@ -98,28 +101,27 @@ animation = "run"
 [sub_resource type="AnimationNodeStateMachineTransition" id=13]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=14]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=15]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=16]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id=17]
-states/attack_2/node = SubResource( 8 )
+[sub_resource type="AnimationNodeStateMachine" id=16]
+states/attack_2/node = SubResource( 7 )
 states/attack_2/position = Vector2( 188, 113 )
-states/idle/node = SubResource( 9 )
+states/idle/node = SubResource( 8 )
 states/idle/position = Vector2( 403, 58 )
-states/run/node = SubResource( 10 )
+states/run/node = SubResource( 9 )
 states/run/position = Vector2( 403, 176 )
-transitions = [ "idle", "run", SubResource( 11 ), "run", "idle", SubResource( 12 ), "idle", "attack_2", SubResource( 13 ), "run", "attack_2", SubResource( 14 ), "attack_2", "idle", SubResource( 15 ), "attack_2", "run", SubResource( 16 ) ]
+transitions = [ "idle", "run", SubResource( 10 ), "run", "idle", SubResource( 11 ), "idle", "attack_2", SubResource( 12 ), "run", "attack_2", SubResource( 13 ), "attack_2", "idle", SubResource( 14 ), "attack_2", "run", SubResource( 15 ) ]
 start_node = "idle"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=18]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=17]
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 313.412, 375.827 )
 scale = Vector2( 3, 3 )
+collision_layer = 2
 script = ExtResource( 1 )
 jump_speed = -600
 gravity = 2000
@@ -130,13 +132,14 @@ position = Vector2( 0, -10 )
 texture = ExtResource( 2 )
 hframes = 13
 vframes = 8
-frame = 5
+frame = 11
 
-[node name="SwordHit" type="Area2D" parent="Sprite"]
+[node name="SwordHitbox" parent="Sprite" instance=ExtResource( 3 )]
+collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/SwordHit"]
-position = Vector2( 7.46729, 5.9462 )
-shape = SubResource( 1 )
+[node name="CollisionShape2D" parent="Sprite/SwordHitbox" index="0"]
+position = Vector2( 7.83604, 6.91415 )
+shape = SubResource( 18 )
 disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -145,15 +148,15 @@ shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 method_call_mode = 1
-anims/attack_2 = SubResource( 4 )
-anims/idle = SubResource( 5 )
-anims/jump = SubResource( 6 )
-anims/run = SubResource( 7 )
+anims/attack_2 = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/jump = SubResource( 5 )
+anims/run = SubResource( 6 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 17 )
+tree_root = SubResource( 16 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 18 )
+parameters/playback = SubResource( 17 )
 
-[connection signal="area_entered" from="Sprite/SwordHit" to="." method="_on_SwordHit_area_entered"]
+[editable path="Sprite/SwordHitbox"]
