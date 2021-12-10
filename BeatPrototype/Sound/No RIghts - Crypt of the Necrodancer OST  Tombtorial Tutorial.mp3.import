@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/No RIghts - Crypt of the Necrodancer OST  Tombtorial Tutorial.mp3-17d02d98ad7afc01eb720e16ab8b78da.mp3str"
+
+[deps]
+
+source_file="res://Sound/No RIghts - Crypt of the Necrodancer OST  Tombtorial Tutorial.mp3"
+dest_files=[ "res://.import/No RIghts - Crypt of the Necrodancer OST  Tombtorial Tutorial.mp3-17d02d98ad7afc01eb720e16ab8b78da.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
