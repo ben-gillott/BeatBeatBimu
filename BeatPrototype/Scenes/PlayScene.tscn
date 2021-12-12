@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/FloorNode.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Enemy1.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Sound/No RIghts - Crypt of the Necrodancer OST  Tombtorial Tutorial.mp3" type="AudioStream" id=4]
-[ext_resource path="res://Scripts/BeatManager.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/BeatManager.tscn" type="PackedScene" id=4]
 
 [node name="PlayScene" type="Node2D"]
 
@@ -23,9 +22,5 @@ scale = Vector2( 70, 10 )
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -15.0524, 50.7489 )
 
-[node name="BeatManager" type="Node2D" parent="."]
-script = ExtResource( 5 )
-
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="BeatManager"]
-stream = ExtResource( 4 )
-volume_db = -9.0
+[node name="BeatManager" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, -101.169 )

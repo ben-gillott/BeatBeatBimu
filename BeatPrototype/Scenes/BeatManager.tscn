@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sound/No RIghts - Crypt of the Necrodancer OST  Tombtorial Tutorial.mp3" type="AudioStream" id=1]
+[ext_resource path="res://Scripts/BeatManager.gd" type="Script" id=2]
+[ext_resource path="res://Art/1x1pxsquare.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/BeatVisualizer.gd" type="Script" id=4]
+
+[node name="BeatManager" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -9.0
+
+[node name="BeatVisualizer" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Center" type="Sprite" parent="BeatVisualizer"]
+scale = Vector2( 30, 30 )
+texture = ExtResource( 3 )
