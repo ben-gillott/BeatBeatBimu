@@ -8,7 +8,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	if get_parent().isBeating:
+	if get_parent().getIsBeating():
 		centerIsBeating()
 	else:
 		centerIsNotBeating()

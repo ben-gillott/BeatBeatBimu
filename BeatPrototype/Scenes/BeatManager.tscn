@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Sound/No RIghts - Crypt of the Necrodancer OST  Tombtorial Tutorial.mp3" type="AudioStream" id=1]
+[ext_resource path="res://Sound/Tombtorial.mp3" type="AudioStream" id=1]
 [ext_resource path="res://Scripts/BeatManager.gd" type="Script" id=2]
 [ext_resource path="res://Art/1x1pxsquare.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/BeatVisualizer.gd" type="Script" id=4]

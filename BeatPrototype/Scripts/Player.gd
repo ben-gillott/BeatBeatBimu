@@ -57,11 +57,19 @@ func move_state(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	if Input.is_action_just_pressed("player_attack"):
-		state = ATTACK
+		attemptAttack()
 
+func attemptAttack():
+	if (get_parent().get_node("BeatManager").getIsBeating()):
+		state = ATTACK
+		print("attack is on beat " + str(get_parent().get_node("BeatManager").getBeatOffset()))
+	else:
+		print("attack is off beat " + str(get_parent().get_node("BeatManager").getBeatOffset()))
+	
 func attack_state(delta):	
 	velocity = Vector2.ZERO
 	animationState.travel("attack_2")
+	
 
 
 func attack_animation_finished():
