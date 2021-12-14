@@ -1,11 +1,9 @@
 extends Node2D
 
-var Track0: AudioStream = preload("../Sound/Tombtorial.mp3")
-
 var bpm = 100.0 #Tombtorial is 100bpm
 var spb = 60.0/bpm
 
-var beatRangeTolerance = .2 #In beat to one side
+var beatRangeTolerance = .15 #In beat to one side
 var beatLoopLength = 4
 
 var isBeating = false
@@ -16,6 +14,9 @@ var beat
 var beatLoopCount #Where in the beat loop it is
 var beatOffset #how far away from nearest beat, in beats
 var nearestBeat
+var lastWholeBeat = 0
+
+signal on_beat(beatCount)
 
 func _ready():
 	startBeat()
@@ -39,8 +40,9 @@ func _process(delta):
 	else:
 		isBeating = false
 	
-	#printCurrent()
-	#if changes beat - trigger signal?
+	if (beat > lastWholeBeat + 1):
+		lastWholeBeat = nearestBeat
+		emit_signal("on_beat", beatLoopCount)
 	
 func getIsBeating():
 	return isBeating

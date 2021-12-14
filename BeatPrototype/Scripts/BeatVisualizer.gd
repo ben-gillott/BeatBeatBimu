@@ -5,15 +5,12 @@ var centerScaleUpRatio = 1.5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	get_parent().connect("on_beat", self, "visualizeBeat")
 
-func _process(delta):
-	if get_parent().getIsBeating():
-		centerIsBeating()
-	else:
-		centerIsNotBeating()
-	#manually check parent isBeating and call sub funcs accordingly
-	pass
+func visualizeBeat(beatCount):
+	centerIsBeating()
+	yield(get_tree().create_timer(.1), "timeout")
+	centerIsNotBeating()
 
 func centerIsBeating():
 	$Center.modulate = Color(.5,1,.5)

@@ -64,6 +64,7 @@ func attemptAttack():
 		state = ATTACK
 		print("attack is on beat " + str(get_parent().get_node("BeatManager").getBeatOffset()))
 	else:
+		$AttackFailSFX.play()
 		print("attack is off beat " + str(get_parent().get_node("BeatManager").getBeatOffset()))
 	
 func attack_state(delta):	
