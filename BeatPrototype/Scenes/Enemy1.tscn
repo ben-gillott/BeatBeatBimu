@@ -5,13 +5,14 @@
 [ext_resource path="res://Scripts/Enemy1.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Hitbox.tscn" type="PackedScene" id=4]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 11.8043
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 15.5986, 19.446 )
 
 [node name="Enemy" type="Node2D"]
+position = Vector2( -40, 0 )
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -21,13 +22,13 @@ texture = ExtResource( 2 )
 collision_mask = 4
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 1 )]
 collision_layer = 8
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [editable path="Hitbox"]
 [editable path="Hurtbox"]

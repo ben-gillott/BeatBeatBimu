@@ -7,9 +7,6 @@
 
 [node name="PlayScene" type="Node2D"]
 
-[node name="Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 140.632, 77.6085 )
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( -0.402863, 0.402878 )
 current = true
@@ -24,3 +21,8 @@ position = Vector2( -15.0524, 50.7489 )
 
 [node name="BeatManager" parent="." instance=ExtResource( 4 )]
 position = Vector2( 0, -101.169 )
+
+[node name="EnemyManager" type="Node2D" parent="."]
+
+[node name="Enemy" parent="EnemyManager" instance=ExtResource( 3 )]
+position = Vector2( 1.33025, 79.1649 )
