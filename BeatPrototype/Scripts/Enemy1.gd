@@ -3,14 +3,18 @@ extends Node2D
 
 var targetPosition = null
 var speed = 5
-var hopDistance = -100
+var hopDistance = -40
 
 func _ready():
-	hopForward()
+	get_parent().get_parent().get_node("BeatManager").connect("on_beat", self, "enemy_on_beat")
 	
 func onHurt(area):
 	print("enemy hurt")
 	queue_free()
+	
+func enemy_on_beat(beatCount):
+	if(beatCount%2 == 1): #Move forward every other beat
+		hopForward()
 
 func hopForward():
 	targetPosition = global_position.x + hopDistance
