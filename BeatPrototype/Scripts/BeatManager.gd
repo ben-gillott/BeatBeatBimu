@@ -3,7 +3,7 @@ extends Node2D
 var bpm = 100.0 #Tombtorial is 100bpm
 var spb = 60.0/bpm
 
-var beatRangeTolerance = .15 #In beat to one side
+var beatRangeTolerance = .2 #In beat to one side
 var beatLoopLength = 4
 
 var isBeating = false

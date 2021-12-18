@@ -17,7 +17,7 @@ zoom = Vector2( 0.5, 0.5 )
 
 [node name="FloorNode" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, 200 )
-scale = Vector2( 70, 10 )
+scale = Vector2( 200, 10 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -15.0524, 50.7489 )
@@ -26,3 +26,18 @@ position = Vector2( -15.0524, 50.7489 )
 
 [node name="Enemy" parent="EnemyManager" instance=ExtResource( 3 )]
 position = Vector2( 292.106, 77.6661 )
+
+[node name="Enemy2" parent="EnemyManager" instance=ExtResource( 3 )]
+position = Vector2( 567.372, 77.1031 )
+
+[node name="Enemy3" parent="EnemyManager" instance=ExtResource( 3 )]
+position = Vector2( 803.288, 75.6043 )
+
+[node name="Enemy4" parent="EnemyManager" instance=ExtResource( 3 )]
+position = Vector2( 1044.66, 76.9464 )
+
+[node name="Enemy5" parent="EnemyManager" instance=ExtResource( 3 )]
+position = Vector2( 1265.26, 77.4291 )
+
+[node name="Enemy6" parent="EnemyManager" instance=ExtResource( 3 )]
+position = Vector2( 1424.88, 75.9303 )

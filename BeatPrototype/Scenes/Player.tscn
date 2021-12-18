@@ -145,7 +145,7 @@ states/run/node = SubResource( 9 )
 states/run/position = Vector2( 403, 176 )
 transitions = [ "idle", "run", SubResource( 10 ), "run", "idle", SubResource( 11 ), "idle", "attack_2", SubResource( 12 ), "run", "attack_2", SubResource( 13 ), "attack_2", "idle", SubResource( 14 ), "attack_2", "run", SubResource( 15 ) ]
 start_node = "idle"
-graph_offset = Vector2( -6.77999, 3.82774e-07 )
+graph_offset = Vector2( -67.8, 38.0625 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=17]
 
@@ -201,11 +201,11 @@ shape = SubResource( 18 )
 
 [node name="AttackHitSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
-volume_db = -19.0
+volume_db = -17.0
 
 [node name="AttackFailSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-volume_db = -14.0
+volume_db = -12.0
 
 [editable path="Sprite/SwordHitbox"]
 [editable path="Hurtbox"]
