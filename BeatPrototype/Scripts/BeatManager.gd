@@ -4,7 +4,7 @@ var bpm = 100.0 #Tombtorial is 100bpm
 var spb = 60.0/bpm
 
 var beatRangeTolerance = .2 #In beat to one side
-var beatLoopLength = 4
+var beatLoopLength = 8
 
 var isBeating = false
 var time = 0.0 #Dont reset this, make sure to keep in time with song.
