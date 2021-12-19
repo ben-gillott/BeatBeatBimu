@@ -12,6 +12,7 @@ func on_beat(beatCount):
 	if (beatCount % 8 == 0):
 		spawnEnemy()
 
+
 func spawnEnemy():
 	var enemy = enemyScene.instance()
 	enemyCount += 1
